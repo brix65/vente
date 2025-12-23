@@ -113,9 +113,9 @@
         }
 
         .cash-note {
-            margin-top: 20px;
+            margin-top: 30px;
             text-align: center;
-            font-size: 18px;
+            font-size: 35px;
             font-weight: bold;
             color: #d40000;
         }
@@ -256,7 +256,7 @@
         <button class="submit-btn">طلب</button>
     </form>
 
-    <div class="cash-note">الدفع عند الاستلام</div>
+    <div class="cash-note">التوصيل مجاني والدفع عند الاستلام </div>
 </div>
 
 <div class="loading-overlay" id="loading">
@@ -327,7 +327,7 @@
                 phone: phone,
                 state: state,
                 product: "jordan 41 black",
-                price: "5000 دج",
+                price: "10000 دج",
                 timestamp: new Date().toISOString()
             };
 
@@ -337,7 +337,7 @@
             // إخفاء رسالة التحميل وإظهار رسالة النجاح
             setTimeout(() => {
                 loadingOverlay.style.display = 'none';
-                alert('تم طلب المنتوج بنجاح، سنتصل بك بعد قليل ملاحضة الدفع سيكون عند استلام المنتوج ');
+                alert('تم طلب المنتوج بنجاح، سنتصل بك بعد قليل ملاحضة التوصيل مجاني و الدفع سيكون عند استلام المنتوج ');
                 orderForm.reset();
             }, 1000);
 
