@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -30,14 +30,13 @@
         }
 
         .header h1 {
-            font-size: 20px;
-            font-weight: 500;
+            font-size: 32px;
+            font-weight: 700;
             text-align: left;
-            margin: 0;
         }
 
         .header h2 {
-            font-size: 24px;
+            font-size: 35px;
             font-weight: 900;
             text-decoration: underline;
             text-align: center;
@@ -62,10 +61,25 @@
 
         .price {
             text-align: center;
-            font-size: 50px;
+            font-size: 32px;
             font-weight: bold;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             color: #000;
+        }
+
+        .delivery-note, .cash-note {
+            text-align: center;
+            font-size: 38px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .delivery-note {
+            color: #007bff;
+        }
+
+        .cash-note {
+            color: #d40000;
         }
 
         .form-section {
@@ -112,14 +126,6 @@
             cursor: pointer;
         }
 
-        .cash-note {
-            margin-top: 30px;
-            text-align: center;
-            font-size: 35px;
-            font-weight: bold;
-            color: #d40000;
-        }
-
         .loading-overlay,
         .image-modal {
             position: fixed;
@@ -154,14 +160,14 @@
             font-weight: bold;
         }
     </style>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 </head>
 <body>
 
 <div class="header">
     <h1>bari shop</h1>
-    <h2>jordan 1 black original  
-    pointure 41 laivraison 58 wilaya
-    </h2>
+    <h2>Jordan 12 Jumpman original</h2>
 </div>
 
 <div class="product-images">
@@ -170,7 +176,9 @@
     <img src="jordan3.jpg">
 </div>
 
-<div class="price">السعر: 10,000‏‏ دج</div>
+<div class="price">10,000 دج</div>
+<div class="delivery-note">توصيل مجاني</div>
+<div class="cash-note">الدفع عند الاستلام</div>
 
 <div class="form-section">
     <form id="orderForm">
@@ -182,7 +190,7 @@
         <div class="form-group">
             <label>رقم الهاتف</label>
             <input type="tel" id="phone" required>
-            <div class="phone-note"> </div>
+            <div class="phone-note"></div>
         </div>
 
         <div class="form-group">
@@ -224,7 +232,7 @@
                 <option>إليزي</option>
                 <option>برج بوعريريج</option>
                 <option>بومرداس</option>
-                <option> الطارف</option>
+                <option>الطارف</option>
                 <option>تيبازة</option>
                 <option>ميلة</option>
                 <option>عين الدفلى</option>
@@ -233,30 +241,15 @@
                 <option>غرداية</option>
                 <option>غليزان</option>
                 <option>سوق أهراس</option>
-                <option>تيبازة</option>
-                <option>إيليزي</option>
-                <option>برج بوعريريج</option>
-                <option>بومرداس</option>
-                <option>الطارف</option>
                 <option>تندوف</option>
                 <option>تيسمسيلت</option>
                 <option>الوادي</option>
                 <option>خنشلة</option>
-                <option>سعيدة</option>
-                <option>مستغانم</option>
-                <option>مسيلة</option>
-                <option>عين الدفلى</option>
-                <option>البيض</option>
-                <option>النعامة</option>
-                <option>عين تموشنت</option>
-                <option>غليزان</option>
             </select>
         </div>
 
         <button class="submit-btn">طلب</button>
     </form>
-
-    <div class="cash-note">التوصيل مجاني والدفع عند الاستلام </div>
 </div>
 
 <div class="loading-overlay" id="loading">
@@ -268,8 +261,6 @@
     <img id="modalImg">
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 <script>
     // كود التهيئة الخاص بمشروع "moudir-67596"
     const firebaseConfig = {
@@ -286,14 +277,10 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
-    // العناصر الأساسية
     const images = document.querySelectorAll('.product-images img');
     const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('modalImg');
-    const orderForm = document.getElementById('orderForm');
-    const loadingOverlay = document.getElementById('loading');
 
-    // وظيفة عرض الصور
     images.forEach(img => {
         img.onclick = () => {
             modalImg.src = img.src;
@@ -309,43 +296,38 @@
         if (e.target === modal) closeImage();
     };
 
-    // معالجة تقديم الطلب
-    orderForm.onsubmit = async (e) => {
+    document.getElementById('orderForm').onsubmit = e => {
         e.preventDefault();
-
+        
         const name = document.getElementById('name').value;
         const phone = document.getElementById('phone').value;
         const state = document.getElementById('state').value;
-
-        // إظهار رسالة التحميل
-        loadingOverlay.style.display = 'flex';
-
-        try {
-            // حفظ البيانات في Firestore
-            const orderData = {
-                name: name,
-                phone: phone,
-                state: state,
-                product: "jordan 41 black",
-                price: "10 000 دج",
-                timestamp: new Date().toISOString()
-            };
-
-            // حفظ البيانات في Firestore باستخدام db.collection().add()
-            await db.collection('orders').add(orderData);
-
-            // إخفاء رسالة التحميل وإظهار رسالة النجاح
-            setTimeout(() => {
-                loadingOverlay.style.display = 'none';
-                alert('تم طلب المنتوج بنجاح، سنتصل بك بعد قليل ملاحضة التوصيل مجاني و الدفع سيكون عند استلام المنتوج ');
-                orderForm.reset();
-            }, 1000);
-
-        } catch (error) {
-            loadingOverlay.style.display = 'none';
-            alert('حدث خطأ أثناء حفظ الطلب، يرجى المحاولة مرة أخرى');
-            console.error('Firestore error:', error);
-        }
+        
+        document.getElementById('loading').style.display = 'flex';
+        
+        const orderData = {
+            name: name,
+            phone: phone,
+            state: state,
+            product: "Jordan 12 Jumpman original",
+            price: "10,000 دج",
+            delivery: "توصيل مجاني",
+            timestamp: new Date().toISOString()
+        };
+        
+        db.collection('orders').add(orderData)
+            .then(() => {
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                    alert('تم طلب المنتوج بنجاح، سنتصل بك بعد قليل');
+                    document.getElementById('orderForm').reset();
+                }, 1000);
+            })
+            .catch(error => {
+                document.getElementById('loading').style.display = 'none';
+                alert('حدث خطأ أثناء حفظ الطلب، يرجى المحاولة مرة أخرى');
+                console.error('Firestore error:', error);
+            });
     };
 </script>
 
