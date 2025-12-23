@@ -1,0 +1,352 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bari shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eaeaea;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 500;
+            text-align: left;
+            margin: 0;
+        }
+
+        .header h2 {
+            font-size: 24px;
+            font-weight: 900;
+            text-decoration: underline;
+            text-align: center;
+            flex: 1;
+        }
+
+        .product-images {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            margin-bottom: 15px;
+        }
+
+        .product-images img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+        }
+
+        .price {
+            text-align: center;
+            font-size: 50px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #000;
+        }
+
+        .form-section {
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .phone-note {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .cash-note {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #d40000;
+        }
+
+        .loading-overlay,
+        .image-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        .image-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>bari shop</h1>
+    <h2>jordan 1 black 
+    pionture 41 laivraison 58 </h2>
+</div>
+
+<div class="product-images">
+    <img src="jordan1.jpg">
+    <img src="jordan2.jpg">
+    <img src="jordan3.jpg">
+</div>
+
+<div class="price">السعر: 5000 دج</div>
+
+<div class="form-section">
+    <form id="orderForm">
+        <div class="form-group">
+            <label>الاسم</label>
+            <input type="text" id="name" required>
+        </div>
+
+        <div class="form-group">
+            <label>رقم الهاتف</label>
+            <input type="tel" id="phone" required>
+            <div class="phone-note"> </div>
+        </div>
+
+        <div class="form-group">
+            <label>اختر الولاية</label>
+            <select id="state" required>
+                <option value="">اختر ولايتك</option>
+                <option>أدرار</option>
+                <option>الشلف</option>
+                <option>الأغواط</option>
+                <option>أم البواقي</option>
+                <option>باتنة</option>
+                <option>بجاية</option>
+                <option>بسكرة</option>
+                <option>بشار</option>
+                <option>البليدة</option>
+                <option>البويرة</option>
+                <option>تمنراست</option>
+                <option>تبسة</option>
+                <option>تلمسان</option>
+                <option>تيارت</option>
+                <option>تيزي وزو</option>
+                <option>الجزائر</option>
+                <option>الجلفة</option>
+                <option>جيجل</option>
+                <option>سطيف</option>
+                <option>سعيدة</option>
+                <option>سكيكدة</option>
+                <option>سيدي بلعباس</option>
+                <option>عنابة</option>
+                <option>قالمة</option>
+                <option>قسنطينة</option>
+                <option>المدية</option>
+                <option>مستغانم</option>
+                <option>المسيلة</option>
+                <option>معسكر</option>
+                <option>ورقلة</option>
+                <option>وهران</option>
+                <option>البيض</option>
+                <option>إليزي</option>
+                <option>برج بوعريريج</option>
+                <option>بومرداس</option>
+                <option> الطارف</option>
+                <option>تيبازة</option>
+                <option>ميلة</option>
+                <option>عين الدفلى</option>
+                <option>النعامة</option>
+                <option>عين تموشنت</option>
+                <option>غرداية</option>
+                <option>غليزان</option>
+                <option>سوق أهراس</option>
+                <option>تيبازة</option>
+                <option>إيليزي</option>
+                <option>برج بوعريريج</option>
+                <option>بومرداس</option>
+                <option>الطارف</option>
+                <option>تندوف</option>
+                <option>تيسمسيلت</option>
+                <option>الوادي</option>
+                <option>خنشلة</option>
+                <option>سعيدة</option>
+                <option>مستغانم</option>
+                <option>مسيلة</option>
+                <option>عين الدفلى</option>
+                <option>البيض</option>
+                <option>النعامة</option>
+                <option>عين تموشنت</option>
+                <option>غليزان</option>
+            </select>
+        </div>
+
+        <button class="submit-btn">طلب</button>
+    </form>
+
+    <div class="cash-note">الدفع عند الاستلام</div>
+</div>
+
+<div class="loading-overlay" id="loading">
+    <div class="loading-content">جاري معالجة الطلب...</div>
+</div>
+
+<div class="image-modal" id="imageModal">
+    <span class="close-btn" onclick="closeImage()">×</span>
+    <img id="modalImg">
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script>
+    // كود التهيئة الخاص بمشروع "moudir-67596"
+    const firebaseConfig = {
+        apiKey: "AIzaSyC91IZelDtX3qf2InDFt7MMLamYrCBH0Yo",
+        authDomain: "moudir-67596.firebaseapp.com",
+        projectId: "moudir-67596",
+        storageBucket: "moudir-67596.firebasestorage.app",
+        messagingSenderId: "25298966640",
+        appId: "1:25298966640:web:ddcc0e56989fa279197cb5",
+        measurementId: "G-9C0G7M4ENT"
+    };
+
+    // تهيئة Firebase و Firestore
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // العناصر الأساسية
+    const images = document.querySelectorAll('.product-images img');
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    const orderForm = document.getElementById('orderForm');
+    const loadingOverlay = document.getElementById('loading');
+
+    // وظيفة عرض الصور
+    images.forEach(img => {
+        img.onclick = () => {
+            modalImg.src = img.src;
+            modal.style.display = 'flex';
+        };
+    });
+
+    function closeImage() {
+        modal.style.display = 'none';
+    }
+
+    modal.onclick = e => {
+        if (e.target === modal) closeImage();
+    };
+
+    // معالجة تقديم الطلب
+    orderForm.onsubmit = async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const phone = document.getElementById('phone').value;
+        const state = document.getElementById('state').value;
+
+        // إظهار رسالة التحميل
+        loadingOverlay.style.display = 'flex';
+
+        try {
+            // حفظ البيانات في Firestore
+            const orderData = {
+                name: name,
+                phone: phone,
+                state: state,
+                product: "jordan 41 black",
+                price: "5000 دج",
+                timestamp: new Date().toISOString()
+            };
+
+            // حفظ البيانات في Firestore باستخدام db.collection().add()
+            await db.collection('orders').add(orderData);
+
+            // إخفاء رسالة التحميل وإظهار رسالة النجاح
+            setTimeout(() => {
+                loadingOverlay.style.display = 'none';
+                alert('تم طلب المنتوج بنجاح، سنتصل بك بعد قليل ملاحضة الدفع سيكون عند استلام المنتوج ');
+                orderForm.reset();
+            }, 1000);
+
+        } catch (error) {
+            loadingOverlay.style.display = 'none';
+            alert('حدث خطأ أثناء حفظ الطلب، يرجى المحاولة مرة أخرى');
+            console.error('Firestore error:', error);
+        }
+    };
+</script>
+
+</body>
+</html>
